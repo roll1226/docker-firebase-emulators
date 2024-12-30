@@ -1,0 +1,32 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY:-null}
+      - VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN:-null}
+      - VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID:-null}
+      - VITE_FIREBASE_STORAGE_BUCKET=${VITE_FIREBASE_STORAGE_BUCKET:-null}
+      - VITE_FIREBASE_MESSAGING_SENDER_ID=${VITE_FIREBASE_MESSAGING_SENDER_ID:-null}
+      - VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID:-null}
+    volumes:
+      - ./:/frontend
+      - frontend_node_modules:/frontend/node_modules
+
+  emulators:
+    build:
+      context: .
+      dockerfile: docker/emulators/Dockerfile
+    ports:
+      - "4000:4000"
+      - "9099:9099"
+    volumes:
+      - ./:/emulators
+      - ./docker/emulators/bin/:/root/.cache:cached
+      - ./docker/emulators/config/:/root/.config:cached
+
+volumes:
+  frontend_node_modules:
