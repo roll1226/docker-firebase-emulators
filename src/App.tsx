@@ -11,11 +11,15 @@ function App() {
   const [password, setPassword] = useState("");
 
   const singUpHandler = useCallback(async () => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((r) => console.log(r))
+      .catch((e) => console.error(e));
   }, [email, password]);
 
   const signInHandler = useCallback(async () => {
-    await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((r) => console.log(r))
+      .catch((e) => console.error(e));
   }, [email, password]);
 
   return (
