@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "emulators": "npx firebase emulators:start --import ./export --export-on-exit & sh ./commands/export.sh"
   },
   "dependencies": {
     "firebase": "^11.1.0",
